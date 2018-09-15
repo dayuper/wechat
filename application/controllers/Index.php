@@ -6,11 +6,11 @@ class IndexController extends \Base\ApplicationController
 
     public function indexAction()
     {
-        $request = $this->request;
-        $timeStamp = $request->param('timestamp');
-        $nonce = $request->param('nonce');
-        $signature = $request->param('signature');
-        $echostr = $request->param('echostr');
+        $request = $this->getRequest();
+        $timeStamp = $request->get('timestamp');
+        $nonce = $request->get('nonce');
+        $signature = $request->get('signature');
+        $echostr = $request->get('echostr');
         $wechat = \Ku\Wechat\Wechat::getInstance();
         $res = $wechat->checkSignatrue($timeStamp,$nonce,$signature);
         if(!$res){
