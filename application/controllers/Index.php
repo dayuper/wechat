@@ -9,39 +9,21 @@ class IndexController extends \Base\ApplicationController
         $request = $this->request;
         $timeStamp = $request->param('timestamp');
         $nonce = $request->param('nonce');
-        $token = $this->_weixinToken;
         $signature = $request->param('signature');
         $echostr = $request->param('echostr');
-        $array = array($timeStamp,$nonce,$token);
-        sort($array);
-        $tmpstr = implode('',$array);
-        $tmpstr = sha1($tmpstr);
-        if($tmpstr == $signature and $echostr){
-           return true;
+        $wechat = \Ku\Wechat\Wechat::getInstance();
+        $res = $wechat->checkSignatrue($timeStamp,$nonce,$signature);
+        if(!$res){
+            echo 'fail';
+            exit();
         }
-        $str = $this->main();
-        \Ku\Log\Adapter::getInstance()->Applog(array($str, __CLASS__, __FUNCTION__, __LINE__));
-        echo $str;
+        $content = $wechat->getXmlContent();
+        if($content === false){
+            echo $echostr;
+            exit();
+        }
+        echo 'success';
         exit();
-    }
-
-    public function main(){
-        $postArr = file_get_contents('php://input');
-        $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
-        \Ku\Log\Adapter::getInstance()->Applog(array($postArr, __CLASS__, __FUNCTION__, __LINE__));
-        $type = strtolower($postObj->MsgType);
-        switch ($type){
-            case 'event':
-                return true;
-                break;
-            case 'text':
-                return true;
-                break;
-            default:
-                return 'NO TRUE!';
-                break;
-        }
-
     }
 
 
