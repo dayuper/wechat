@@ -1,0 +1,319 @@
+<?php
+    $fe_version = '20170601';
+?>
+		</div>
+        <div class="hide">
+            <?php echo $this->countCode;?>
+        </div>
+   <script src="<?php echo $this->scriptUrl;?>/js/jquery-1.11.1.min.js"></script>
+    <script src="<?php echo $this->scriptUrl;?>/js/jquery.cookie.min.js"></script>
+    <link rel='shortcut icon' href='<?php echo $this->imageUrl;?>/images/favicon.ico' type='image/x-icon' />
+    <!--[if IE]>
+    <link href="<?php echo $this->styleUrl;?>/css/style-ie.css" type="text/css"  rel="stylesheet" rev="stylesheet" media="screen" />
+    <script src="<?php echo $this->scriptUrl;?>/js/html5shiv-3.7.min.js"></script>
+    <script src="<?php echo $this->scriptUrl;?>/js/excanvas.js"></script>
+    <![endif]-->
+    <!--<script src="<?php echo $this->scriptUrl;?>/js/pie-ie-all.js"></script>-->
+    <script>
+        var globalAssetsUrl = '/',
+            staticUrl = '<?php echo $this->staticUrl;?>';
+    </script>
+     <!--头部导航菜单-滑动效果 begin-->
+    <script src="<?php echo $this->scriptUrl;?>/js/jquery.easing.min.js"></script>
+    <script src="<?php echo $this->scriptUrl;?>/js/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#HeaderNav').lavaLamp({fx: 'swing', speed: 350});
+        });
+    </script>
+        <script type="text/javascript">
+            $(function(){
+                $('#nav-buyfusion').hover(function(){
+                    $(this).addClass('nav-parent-hover');
+                    $('.nav-buyfusion-subnav').removeClass('hide');
+                    $(this).find('i').removeClass('icon-select-orange').addClass('icon-selected-orange');
+                },function(){
+                    $(this).removeClass('nav-parent-hover');
+                    $('.nav-buyfusion-subnav').addClass('hide');
+                    $(this).find('i').addClass('icon-select-orange').removeClass('icon-selected-orange');
+                });
+                $('#nav-usercenter').hover(function(){
+                    $(this).addClass('nav-parent-hover');
+                    $('.nav-usercenter-subnav').removeClass('hide');
+                    $(this).find('.nav-parent i').removeClass('icon-select-orange').addClass('icon-selected-orange');
+                },function(){
+                    $(this).removeClass('nav-parent-hover');
+                    $('.nav-usercenter-subnav').addClass('hide');
+                    $(this).find('.nav-parent i').addClass('icon-select-orange').removeClass('icon-selected-orange');
+                })
+            })
+        </script>
+    <!--头部导航菜单-滑动效果 end-->
+    <script src="<?php echo $this->scriptUrl;?>/js/common.js?v=<?php echo $fe_version;?>" type="text/javascript"></script>
+        <?php if (isset($addScript) && $addScript):?>
+            <?php foreach ($addScript as $key => $val):?>
+                <script type="text/javascript" src="<?php echo $this->scriptUrl.$val;?>?v=<?php echo $fe_version;?>"></script>
+            <?php endforeach;?>
+        <?php endif;?>
+<!--footer begin-->
+    <div class="footer clearfix">
+        <div class="layout clearfix">
+            <ul class="footer-creditList">
+               <li>
+               </li>
+            </ul>
+            <div class="copyright-zone">
+                <p>
+                    <a href="/xinwen/newconten/380">关于私房钱</a>
+                    <a href="##" style="display: none;">关于免等贷</a>
+                    <a href="##" style="display: none;">关于牛投帮</a>
+                    <a href="/xinwen/newList/12">媒体报道</a>
+                    <a href="/xinwen/newconten/389">常见问题</a>
+                </p>
+                <p>CopyRight &copy; 2016 私房钱 All rights reserved   厦门四方乾金融技术服务有限公司  &nbsp;闽ICP14012583号&nbsp;&nbsp;&nbsp;&nbsp;   <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35020602000288" class="footer-beian"><i class="icon icon-beian"></i><span>闽公网安备 35020602000288号</span></a></p>
+                <div class="certf">
+                    <a href="https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&amp;dn=www.sifangqian.com&amp;lang=zh_cn" class="smtk mr20" target="_blank" rel="nofollow">
+                        <span>赛门铁克安全认证</span>
+                    </a>
+                    <a href="http://www.miitbeian.gov.cn/" class="beian" target="_blank" rel="nofollow">
+                        <span>工信部备案信息</span></a>
+                    <a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1302995840" class="icp ml10" target="_blank" rel="nofollow">
+                        <span>ICP</span></a>
+                    <a href="http://www.xiamen.cyberpolice.cn/" class="pl ml20" target="_blank" rel="nofollow">
+                        <span>公安备案</span></a>
+                    <a key="56025aadefbfb024124821f0" logo_size="124x47" logo_type="business" href="http://www.anquan.org/authenticate/cert/?site=www.sifangqian.com&amp;at=business" class="shim ml20 mt5" rel="nofollow" target="_blank">
+
+                    </a>
+                    <a href="http://webscan.360.cn/index/checkwebsite?url=sifangqian.com" class="sale360 ml20" target="_blank" rel="nofollow">
+                        <span>360安全检查</span></a>
+                    <a href="http://xmwj.gov.cn/ei/Ei!certificate.action?id=40288a8556e5527d0156fe91a99900d0" target="_blank" style="border:0;" tel="nofollow">
+                        <img src="<?php echo $this->imageUrl;?>/images/icp.png" style="border:0;">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-service">
+                <dl>
+                    <dt>400-0592-444</dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                <a href="mailto:kf@sifangqian.com">
+                                    <i class="icon icon-mail"></i>客服邮箱
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/special/CustomerService.html" target="_blank">
+                                    <i class="icon icon-service"></i>在线客服
+                                </a>
+                            </li>
+                            <li class="li-last">
+                                <i class="icon icon-time"></i>服务时间  9:00-17:30
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <ul class="footer-2code clearfix">
+                    <li>
+                        <img src="<?php echo $this->imageUrl;?>/images/wechatimg.png" alt="微信公众号">
+                        <p>公众号</p>
+                    </li>
+                    <li>
+                        <img src="<?php echo $this->imageUrl;?>/images/dingyue.png" alt="微信订阅号">
+                        <p>订阅号</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--footer end-->
+</div>
+
+    <div id="fixed-ntb" class="fixed-ntb" style="display: none;">
+        <a href="<?php echo 'http://www.niutoubang.com';?>">
+            <i class="iconbig iconbig-ntb-shadow"></i>
+            <i class="iconbig iconbig-ntb-logo"></i>
+            <i class="iconbig iconbig-ntb-txt"></i>
+        </a>
+        <i class="iconbig iconbig-ntb-close" title="隐藏牛头帮链接"></i>
+    </div>
+    
+    <div id="fixed-lottery" class="fixed-lottery fixed-lottery-small">
+        <a href="/invest/userDraw/">
+            <i class="iconbig iconbig-lottery"></i>
+            <i class="iconbig iconbig-lottery-light"></i>
+            <i class="iconbig iconbig-lottery-small"></i>
+        </a>
+        <i class="iconbig iconbig-lottery-close" title="收起抽奖层"></i>
+    </div>
+
+    <div class="r-fixed-box">
+        <a href="/special/CustomerService.html" class="iconbig qqServer" target="_blank" title="客服咨询"><span>客服<br>咨询</span></a>
+        <a href="/counter" class="iconbig counterBnt" target="_blank" title="计算器"><span>计算器</span></a>
+        <a href="javascript:;" class="iconbig upBtn" id="returntop" title="返回顶部" style="display: none;"><span>返回<br>顶部</span></a>
+    </div>
+
+    <!-- 右下角活动图标 begin -->
+    <!--
+    <div id="r-fixed-activity" class="r-fixed-activity">
+        <a href="/info/fatherday">
+            <i class="icon-father-fixed"></i>
+        </a>
+        <i class="iconbig iconbig-father-close" id="js-act-close" title="关闭图标"></i>
+    </div>
+    -->
+
+
+    <!-- 七夕 -->
+        <style>
+            .icon-lover-fixed {
+                display: block;
+                width: 200px;
+                height: 200px;
+                background: url('<?php echo $this->styleUrl;?>/activeday/lover/images/progress-icon.png');
+            }
+            .activity-pro-tips {
+                display: block;
+                padding-top: 110px;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: bold;
+                color: #8c7379;
+                line-height: 24px;
+                text-align: center;
+            }
+            .activity-pro-tips > strong {
+                color: #c83460
+            }
+            #circleProgress {
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 196px;
+                height: 196px;
+            }
+        </style>
+        <div id="r-fixed-activity" class="r-fixed-activity">
+            <a href="/qixi/">
+                <div id="circleProgress"></div>
+                <i class="icon-lover-fixed"> 
+                    <span class="activity-pro-tips">
+                        <span>目前距离</span>
+                        <br>
+                        <strong>1200米</strong>
+                    </span>
+                </i>
+            </a>
+        </div>
+        <script src="<?php echo $this->styleUrl;?>/js/progressbar.min.js"></script>
+        <script>
+            var circle = new ProgressBar.Circle('#circleProgress', {
+                color: '#ffa784',
+                strokeWidth: 7
+            });
+             
+            circle.animate(1)
+        </script>
+
+    <!-- 七夕 -->
+
+    <!-- 右下角活动图标 end -->
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        (function($){
+            $(function(){   //returntop 返回顶部
+                $(window).scroll(function(){
+                    if ($(window).scrollTop()>100){
+                        var left=$('.topbar .layout').offset().left;
+                        var width=$('.topbar .layout').width();
+                        if(window.screen.width>1100){
+                            $('#returntop').css({'left':'auto','right':'20px'});
+                        }else{
+                            $('#returntop').css({'left':left+width+20});
+                        }
+                        $("#returntop").fadeIn('slow');
+                    }else{
+                        $("#returntop").fadeOut('slow');
+                    }
+                });
+                //当点击跳转链接后，回到页面顶部位置
+                $("#returntop").click(function(){
+                    $('body,html').animate({scrollTop:0},500);
+                    return false;
+                });
+
+                //设置抽奖图标的cookie，当用户关闭后，30分钟后再出现
+                var lotteryCookie = getCookie('lotteryCookie');
+                if( typeof lotteryCookie != 'undefined' && lotteryCookie != '' && lotteryCookie != null ){
+                    $('#fixed-lottery').addClass('fixed-lottery-small');
+                }else{
+                    $('#fixed-lottery').removeClass('fixed-lottery-small');
+                }
+
+                $('.iconbig-lottery-close').on('click', function (e) {
+                    e.stopPropagation();
+                    $(this).parents('#fixed-lottery').addClass('fixed-lottery-small');
+                    setCookie('lotteryCookie', 'hide', 12, 'hour');
+                });
+
+                //关闭右下角活动图标
+                $('#js-act-close').on('click', function (e) {
+                    e.stopPropagation();
+                    $(this).parents('#r-fixed-activity').remove();
+                });
+
+                //左侧牛头帮固定图标
+                //var fixedNtbInterval;
+                /*牛头帮链接隐藏，后续开启
+                var $fixedNtb = $('#fixed-ntb');
+                $fixedNtb.on('mouseenter', function () {
+                    //window.clearInterval( fixedNtbInterval );
+                    var $this = $(this);
+                    $this.addClass('fixed-ntb-on');
+                    $this.stop().animate({'left': 0}, 300);
+                }).on('mouseleave', function () {
+                    var $this = $(this);
+                    $this.removeClass('fixed-ntb-on');
+                    $this.stop().animate({'left': '-113px'}, 300);
+                });
+                */
+
+//                fixedNtbInterval = setInterval(function () {
+//                    $fixedNtb.addClass('fixed-ntb-on');
+//                    $fixedNtb.stop().animate({'left': 0}, 300);
+//                    setTimeout(function () {
+//                        $fixedNtb.removeClass('fixed-ntb-on');
+//                        $fixedNtb.stop().animate({'left': '-113px'}, 300);
+//                    },2500)
+//                }, 20000);
+            });
+        })(jQuery)
+    </script>
+<!--返回顶部 end-->
+
+<!--baidu统计 begin-->
+<div style="display:none">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e95525e19543312cc0b043166a9ee816";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</div>
+<!--baidu统计 end-->
+<!--[if IE 6]>
+<script src="<?php echo $this->imageUrl;?>/js/dd_png.js"></script>
+<script>
+  DD_belatedPNG.fix('.iconbig,.icon-logo');
+</script>
+<![endif]-->    
+</body>
+</html>

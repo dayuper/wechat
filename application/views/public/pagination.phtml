@@ -1,0 +1,29 @@
+<?php if($this->pager->getPageCount()>1):?>
+    <div class="ft">
+        <nav class="pull-right" aria-label="Page navigation">
+            <ul class="pagination">
+                <?php if($this->pager->getPage()>1):?>
+                <li>
+                  <a href="<?php echo $this->uri(array('page'=>$this->pager->getPage()-1));?>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+            <?php endif;?>
+            <?php foreach ($this->pager->getRangList() as $key => $num):?>
+                <?php if($num == $this->pager->getPage()):?>
+                <li class="active"><a href="#"><?php echo $num;?></a></li>
+            <?php else: ?>
+                <li><a href="<?php echo $this->uri(array('page'=>$num));?>"><?php echo $num;?></a></li>
+            <?php endif;?>
+            <?php endforeach;?>
+                <?php if($this->pager->getPage()<$this->pager->getPageCount()):?>
+                <li>
+                  <a href="<?php echo $this->uri(array('page'=>$this->pager->getPage()+1));?>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                <?php endif;?>
+            </ul>
+        </nav>
+    </div>
+<?php endif;?>

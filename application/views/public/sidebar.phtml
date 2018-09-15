@@ -1,0 +1,16 @@
+<div class="sidebar">
+    <h3>我的动态码</h3>
+    <ul class="nav nav-sidebar">
+        <li<?php if($type=='index'):?> class="active"<?php endif;?>><a href="/">概况</a></li>
+        <li<?php if($type=='platform'):?> class="active"<?php endif;?>>
+            <a href="/platform/">平台码</a>
+        </li>
+        <li<?php if($type=='live'):?> class="active"<?php endif;?>><a href="/live/">活码</a></li>
+    </ul>
+    <?php /*屏蔽* ?>
+    <h3>我的账户</h3>
+    <ul class="nav nav-sidebar">
+        <li<?php if($type=='buy'):?> class="active"<?php endif;?>><a href="/buy/">升级会员</a></li>
+    </ul>
+    <?php /**/ ?>
+</div>

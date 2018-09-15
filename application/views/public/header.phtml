@@ -1,0 +1,127 @@
+<?php
+    $fe_version = '20170601';
+?>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+    <title><?php if (isset($title) && $title): ?><?php echo $title; ?><?php else: ?><?php echo '免等贷--就是快' ?><?php endif; ?></title>
+    <meta name="keywords" content="<?php if (isset($keywords) && $keywords){ echo $keywords;}else{ echo '免等贷，贷款就是快，私房钱，国民投资平台，互联网投资平台'; } ?>">
+    <meta name="Description" content="<?php if (isset($description) && $description): ?><?php echo $description; ?><?php else: ?><?php echo '免等贷,就是快' ?><?php endif; ?>" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" rev="stylesheet" href="<?php echo $this->styleUrl;?>/css/style.min.css?v=<?php echo $fe_version;?>" type="text/css" media="screen" />
+    <link rel="stylesheet" rev="stylesheet" href="<?php echo $this->styleUrl;?>/css/jquery-ui.css" type="text/css" media="screen" />
+     <?php if (isset($addStyle) && $addStyle):?>
+            <?php foreach ($addStyle as $key => $val):?>
+                <link href="<?php echo $this->styleUrl.$val;?>?v=<?php echo $fe_version;?>" rel="stylesheet">
+            <?php endforeach;?>
+        <?php endif;?>
+</head>
+
+<body class="body-nowait">
+<div class="wrapper">
+    <!--topbar begin-->
+    <div class="topbar">
+        <div class="layout clearfix">
+            <div class="topbar-left">
+                <span class="icon-box floatl">
+                    <i class="icon icon-tel"></i>
+                    <span class="font-tw">400-0592-444</span>
+                </span>
+                &nbsp;&nbsp;
+                <span class="pl20 pr10 floatl">服务时间：9:00-17:30（周一至周五）</span>
+                <a class="icon icon-sina floatl" href="http://weibo.com/u/5192053534" target="_blank" title="关注私房钱微博" rel="nofollow"></a>
+                <a class="icon icon-qq floatl" href="http://jq.qq.com/?_wv=1027&k=294xU5t" target="_blank" title="点击加入私房钱投资交流群" rel="nofollow"></a>
+                <a class="icon icon-wechat floatl" href="javascript:;" rel="nofollow">
+                    <div class="pp-small pp-small-top pp-small-wechat" style="display: none;">
+                        <span class="icon-arrow"><span></span></span>
+                        <ul class="clearfix">
+                            <li>
+                                <i class="iconbig iconbig-gzh"></i>
+                                <p>公众号</p>
+                            </li>
+                            <li>
+                                <i class="iconbig iconbig-dyh"></i>
+                                <p>订阅号</p>
+                            </li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+            <div class="topbar-right">
+                <?php if($this->uid):?>
+                <span class="topbar-log topbar-logout">
+                    <a href="<?php echo site_url('account');?>">
+                    <?php echo (strlen(WebVisitor::getUserInfo()['userName'])<14)?WebVisitor::getUserInfo()['userName'] : substr_replace(WebVisitor::getUserInfo()['userName'],'**',12);?>
+                    </a>
+                    <span class="sepline"></span>
+                    <a href="<?php echo site_url('account/unreadUserMsg');?>" class="msgLabel">
+                        消息
+                        <?php $msgCount = NoticeTempLogic::getUnreadMsgCount();if(!empty($msgCount)){?>
+                            <span><?php echo $msgCount;?></span>
+                        <?php }?>
+                    </a>
+                    <span class="sepline"></span>
+                    <a href="/user/logout/" title="安全退出">安全退出</a>
+                </span>
+                <?php else: ?>
+                <span class="topbar-log topbar-login">
+                    <a href="/user/login/" title="登录">登录</a>
+                    <span class="sepline"></span>
+                    <a href="/user/reg/" title="注册">注册</a>
+                </span>
+                <?php endif;?>
+                <span class="topbar-tools">
+                    <a href="/xinwen/newconten/help/" target="_blank">帮助中心</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--topbar end-->
+    
+    <!--header begin-->
+    <div class="header">
+        <div class="topHeader layout clearfix">
+            <h1 class="logo ico-png24">
+                <a href="/invest" title="" class="head-logo-img"></a>
+                <a href="/info/duanwu" title="端午活动" class="logo-r-act"></a>
+            </h1>
+
+            <div class="navFull clearfix" id="marquee">
+                <div class="nav-main">
+                    <ul id="HeaderNav" class="nav clearfix">
+                        <li id="nav-index" <?php echo empty($now_block)|| $now_block=='home'?'class="index-cur"':'';?>>
+                            <a href="/" title="" class="nav-parent">首 页</a>
+                        </li>
+                        <li id="nav-domainregister">
+                            <a href="/invest/" title="" class="nav-parent">免等贷</a>
+                        </li>
+                        <!--
+                        <li id="nav-buyfusion">
+                            <a href="<?php echo 'http://www.niutoubang.com';?>" title="" class="nav-parent">牛投帮</a>
+                        </li>
+                        -->
+                        <li id="nav-domainauction" >
+                            <a href="/user/userLoad/" title="" class="nav-parent">我要借款</a>
+                        </li>
+                        <li id="nav-domainsale">
+                            <a href="/jifen/" title="" class="nav-parent">积分商城</a>
+                        </li>
+                        <li id="nav-transfer">
+                            <a href="/info/charity/" title="" class="nav-parent">爱心公益</a>
+                        </li>
+                        <li id="nav-agency">
+                            <a href="/info/aboutus/" title="" class="nav-parent">信息披露</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nav-mymoney">
+                <a href="/user/login/" title="我的私房钱" class="btn-link"><i class="icon icon-smile btn-link-icon"></i>我的私房钱<i class="icon icon-arrowr"></i></a>
+            </div>
+        </div>
+    </div>
+    <!--header end-->
