@@ -7,12 +7,12 @@
  */
 namespace Ku\Wechat;
 
-class Wechat{
+class Wechat extends BaseAbstract {
     use Instance;
 
     private $_api = 'https://api.weixin.qq.com/';
     private $_appId = '';
-    private $_AppSecret = '';
+    private $_appSecret = '';
     private $_wechatToken = '';
 
     public function __construct()
@@ -20,14 +20,19 @@ class Wechat{
         $config = \Yaf\Registry::get('config');
         $conf = $config->get('resources.wechat');
         if (!isset($conf['appid']) || !isset($conf['appsecret'])) {
-            throw new \Exception("微信 未配置", 1);
+            throw new \Exception('微信未配置');
         }
         $this->_appId = $conf['appid'];
-        $this->_AppSecret = $conf['appsecret'];
+        $this->_appSecret = $conf['appsecret'];
         $this->_wechatToken = $conf['token'];
     }
 
-
+    /**信息认证
+     * @param $timeStamp
+     * @param $nonce
+     * @param $signature
+     * @return bool
+     */
     public function checkSignatrue($timeStamp,$nonce,$signature){
         $token = $this->_wechatToken;
         $array = array($timeStamp,$nonce,$token);
@@ -41,17 +46,124 @@ class Wechat{
 
     }
 
-    public function getAccessToken(){
-
+    /**获取token
+     * @param bool $freshen
+     * @return bool|string
+     */
+    public function getAccessToken($freshen=false){
+        $redis = $this->getRedis();
+        $tokenKey = 'access.token.'.$this->_appId;
+        if($freshen === false){
+            $token = $redis->get($tokenKey);
+            if($token !== false){
+                return $token;
+            }
+        }
+        $url = $this->_api.'cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s';
+        $url = sprintf($url,$this->_appId,$this->_appSecret);
+        $http = new \Ku\Http();
+        $http->setUrl($url);
+        $send = $http->send();
+        if(!$send){
+            return $this->getMsg(300,'请求超时');
+        }
+        $result = json_decode($send,true);
+        if(!isset($result['access_token'])){
+            return $this->getMsg($result['errcode'],$result['errmsg']);
+        }
+        $redis->set($tokenKey,$result['access_token'],7199);
+        return $result['access_token'];
     }
 
-
+    /**获取消息
+     * @return array|bool
+     */
     public function getXmlContent(){
         $postArr = file_get_contents('php://input');
         if(empty($postArr)){
             return false;
         }
         $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $Param = [];
+        $Param['from_user_name'] = (string) isset($postObj->FromUserName)?$postObj->FromUserName:'';
+        $Param['to_user_name'] = (string) isset($postObj->ToUserName)?$postObj->ToUserName:'';
+        $Param['location_X'] = (string) isset($postObj->Location_X)?$postObj->Location_X:'';
+        $Param['location_Y'] = (string) isset($postObj->Location_Y)?$postObj->Location_Y:'';
+        $Param['msg_type'] = (string) isset($postObj->MsgType)?$postObj->MsgType:'';
+        $Param['keyword'] = (string) isset($postObj->keyword)?trim($postObj->keyword):'';
+        $Param['event'] = (string) isset($postObj->Event)?$postObj->Event:'';
+        $Param['event_key'] = (string) isset($postObj->EventKey)?$postObj->EventKey:'';
+        $Param['pic_url'] = (string) isset($postObj->PicUrl)?$postObj->PicUrl:'';
+        $Param['content'] = (string) isset($postObj->Content)?$postObj->Content:'';
+        return $Param;
     }
+
+    public function act(){
+        
+    }
+
+    /**创建菜单
+     * @param $createMue
+     * @return bool
+     */
+    public function createMenu($createMenu){
+        if(empty($createMenu)){
+            return $this->getMsg(500,'新增菜单不能为空');
+        }
+        $token = $this->getAccessToken();
+        $url = $this->_api.'cgi-bin/menu/create?access_token='.$token;
+        $http = new \Ku\Http();
+        $http->setUrl($url);
+        $http->setParam($createMenu,true,true);
+        $res = $http->postJson();
+        if(!$res){
+            return $this->getMsg(300,'请求超时');
+        }
+        $result = json_decode($res,true);
+        if($result['errcode'] ==0){
+            return true;
+        }
+        return $this->getMsg($result['errcode'],$result['errmsg']);
+    }
+
+    /**菜单查询
+     * @return bool
+     */
+    public function selectMenu(){
+        $token = $this->getAccessToken();
+        $url = $this->_api.'cgi-bin/menu/get?access_token='.$token;
+        $http = new \Ku\Http();
+        $http->setUrl($url);
+        $res = $http->send();
+        if(!$res){
+            return $this->getMsg(300,'请求超时');
+        }
+        $result = json_decode($res,true);
+        if(!isset($result['menu'])){
+            return $this->getMsg(500,'没有菜单');
+        }
+        return $result['menu'];
+    }
+
+    /**删除菜单
+     * @return bool
+     */
+    public function delMenu(){
+        $token = $this->getAccessToken();
+        $url = $this->_api.'cgi-bin/menu/delete?access_token='.$token;
+        $http = new \Ku\Http();
+        $http->setUrl($url);
+        $res = $http->send();
+        if(!$res){
+            return $this->getMsg(300,'请求超时');
+        }
+        $result = json_decode($res,true);
+        if($result['errcode'] ==0){
+            return true;
+        }
+        return $this->getMsg($result['errcode'],$result['errmsg']);
+    }
+
+
 
 }

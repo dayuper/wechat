@@ -64,7 +64,7 @@ class Http {
             $this->_timeout=100;
         }
         if($isJson == true){
-            $this->_params = json_encode($_params);
+            $this->_params = json_encode($_params,JSON_UNESCAPED_UNICODE);
         }else{
             if (is_array($_params)) {
                 $this->_params = http_build_query($_params);
@@ -180,7 +180,7 @@ class Http {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->_url);
         curl_setopt($ch, CURLOPT_POST, 1);
-//        var_dump($this->_params);
+//        var_dump($this->_params);die();
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_params);
         $dataLen = strlen($this->_params);
 //        var_dump($dataLen);

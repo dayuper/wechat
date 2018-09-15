@@ -2,7 +2,6 @@
 
 class IndexController extends \Base\ApplicationController
 {
-    private $_weixinToken ='chendongqin4917';
 
     public function indexAction()
     {
@@ -25,6 +24,7 @@ class IndexController extends \Base\ApplicationController
         echo 'success';
         exit();
     }
+
 
 
 
