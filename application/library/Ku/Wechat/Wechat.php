@@ -137,13 +137,12 @@ class Wechat extends BaseAbstract {
             case 'text':
                 $data['MsgType'] = 'text';
                 $data['Content'] = $answer;
-                $mainXml = $this->data2Xml($data);
+                $xml = $this->data2Xml($data);
                 break;
             default:
                 return '';
                 break;
         }
-        $xml = '<xml>' . $mainXml . '</xml>';
         return $xml;
     }
 
