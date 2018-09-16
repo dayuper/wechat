@@ -149,12 +149,13 @@ class Wechat extends BaseAbstract {
         $xml = $attr = '';
 
         foreach ($data as $key => $val) {
-            if (is_numeric($key)) {
-                $id && $attr = " {$id}=\"{$key}\"";
-                $key = $item;
-            }
-
-            $xml .= "<{$key}{$attr}>";
+//            if (is_numeric($key)) {
+//                $id && $attr = " {$id}=\"{$key}\"";
+//                $key = $item;
+//            }
+//
+//            $xml .= "<{$key}{$attr}>";
+            $xml .= "<{$key}";
 
             if ((is_array($val) || is_object($val))) {
                 $xml .= $this->data2Xml((array) $val, $item, $id);

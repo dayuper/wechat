@@ -22,7 +22,7 @@ class WechatController extends \Base\ApplicationController
             exit();
         }
         $content = $wechat->getXmlContent();
-        \Ku\Log\Adapter::getInstance()->Applog(array($content, __CLASS__, __FUNCTION__, __LINE__));
+        \Ku\Log\Adapter::getInstance()->Applog(array(json_encode($content), __CLASS__, __FUNCTION__, __LINE__));
         if($content === false){
             echo $echostr;
             exit();
