@@ -155,7 +155,7 @@ class Wechat extends BaseAbstract {
 //            }
 //
 //            $xml .= "<{$key}{$attr}>";
-            $xml .= "<{$key}";
+//            $xml .= "<{$key}";
 
             if ((is_array($val) || is_object($val))) {
                 $xml .= $this->data2Xml((array) $val, $item, $id);
@@ -163,7 +163,7 @@ class Wechat extends BaseAbstract {
                 $xml .= is_numeric($val) ? $val : $this->cdata($val);
             }
 
-            $xml .= "</{$key}>";
+//            $xml .= "</{$key}>";
         }
 
         return $xml;
