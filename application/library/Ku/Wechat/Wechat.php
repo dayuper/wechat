@@ -109,6 +109,9 @@ class Wechat extends BaseAbstract {
                         break;
                     //关注
                     case 'subscribe':
+                        return $this->createXml($content, 'text', "亲爱的，欢迎来到私房钱，开启财富之路！\n
+<a href=\"http://ball.cdddong.com\">立即注册领取新人专享礼包</a>\n
+<a href=\"http://ball.cdddong.com\">点击进入私房钱投资交流圈</a>\n");
                         break;
                     //取消关注
                     case 'unsubscribe':
@@ -121,7 +124,6 @@ class Wechat extends BaseAbstract {
             case 'text':
                $xml = $this->textXml($content,'text','你好');
         }
-        \Ku\Log\Adapter::getInstance()->Applog(array($xml, __CLASS__, __FUNCTION__, __LINE__));
         return $xml;
     }
 
@@ -149,13 +151,13 @@ class Wechat extends BaseAbstract {
         $xml = $attr = '';
 
         foreach ($data as $key => $val) {
-//            if (is_numeric($key)) {
-//                $id && $attr = " {$id}=\"{$key}\"";
-//                $key = $item;
-//            }
-//
-//            $xml .= "<{$key}{$attr}>";
-//            $xml .= "<{$key}";
+            if (is_numeric($key)) {
+                $id && $attr = " {$id}=\"{$key}\"";
+                $key = $item;
+            }
+
+            $xml .= "<{$key}{$attr}>";
+            $xml .= "<{$key}";
 
             if ((is_array($val) || is_object($val))) {
                 $xml .= $this->data2Xml((array) $val, $item, $id);
@@ -163,7 +165,7 @@ class Wechat extends BaseAbstract {
                 $xml .= is_numeric($val) ? $val : $this->cdata($val);
             }
 
-//            $xml .= "</{$key}>";
+            $xml .= "</{$key}>";
         }
 
         return $xml;

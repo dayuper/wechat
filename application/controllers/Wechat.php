@@ -29,6 +29,7 @@ class WechatController extends \Base\ApplicationController
         }
         $xml = $wechat->act($content);
         echo $xml;
+        \Ku\Log\Adapter::getInstance()->Applog(array($xml, __CLASS__, __FUNCTION__, __LINE__));
         exit();
     }
 
