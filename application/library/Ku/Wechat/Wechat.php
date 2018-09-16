@@ -36,7 +36,7 @@ class Wechat extends BaseAbstract {
     public function checkSignatrue($timeStamp,$nonce,$signature){
         $token = $this->_wechatToken;
         $array = array($timeStamp,$nonce,$token);
-        sort($array);
+        sort($array, SORT_STRING);
         $tmpstr = implode('',$array);
         $tmpstr = sha1($tmpstr);
         if($tmpstr == $signature){

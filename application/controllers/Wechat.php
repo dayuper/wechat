@@ -17,7 +17,7 @@ class WechatController extends \Base\ApplicationController
         $echostr = $request->get('echostr');
         $wechat = \Ku\Wechat\Wechat::getInstance();
         $res = $wechat->checkSignatrue($timeStamp,$nonce,$signature);
-        if(!$res){
+        if($res === false){
             echo 'fail';
             exit();
         }
