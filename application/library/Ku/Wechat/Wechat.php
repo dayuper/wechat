@@ -84,23 +84,100 @@ class Wechat extends BaseAbstract {
             return false;
         }
         $postObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
-        $Param = [];
-        $Param['from_user_name'] = (string) isset($postObj->FromUserName)?$postObj->FromUserName:'';
-        $Param['to_user_name'] = (string) isset($postObj->ToUserName)?$postObj->ToUserName:'';
-        $Param['location_X'] = (string) isset($postObj->Location_X)?$postObj->Location_X:'';
-        $Param['location_Y'] = (string) isset($postObj->Location_Y)?$postObj->Location_Y:'';
-        $Param['msg_type'] = (string) isset($postObj->MsgType)?$postObj->MsgType:'';
-        $Param['keyword'] = (string) isset($postObj->keyword)?trim($postObj->keyword):'';
-        $Param['event'] = (string) isset($postObj->Event)?$postObj->Event:'';
-        $Param['event_key'] = (string) isset($postObj->EventKey)?$postObj->EventKey:'';
-        $Param['pic_url'] = (string) isset($postObj->PicUrl)?$postObj->PicUrl:'';
-        $Param['content'] = (string) isset($postObj->Content)?$postObj->Content:'';
-        return $Param;
+        $content = [];
+        $content['from_user_name'] = (string) isset($postObj->FromUserName)?$postObj->FromUserName:'';
+        $content['to_user_name'] = (string) isset($postObj->ToUserName)?$postObj->ToUserName:'';
+        $content['location_X'] = (string) isset($postObj->Location_X)?$postObj->Location_X:'';
+        $content['location_Y'] = (string) isset($postObj->Location_Y)?$postObj->Location_Y:'';
+        $content['msg_type'] = (string) isset($postObj->MsgType)?$postObj->MsgType:'';
+        $content['keyword'] = (string) isset($postObj->keyword)?trim($postObj->keyword):'';
+        $content['event'] = (string) isset($postObj->Event)?$postObj->Event:'';
+        $content['event_key'] = (string) isset($postObj->EventKey)?$postObj->EventKey:'';
+        $content['pic_url'] = (string) isset($postObj->PicUrl)?$postObj->PicUrl:'';
+        $content['content'] = (string) isset($postObj->Content)?$postObj->Content:'';
+        return $content;
     }
 
-    public function act(){
-        
+    public function act($content){
+        $xml = '';
+        switch ($content['msg_type']) {
+            case "event":
+                $event = $content['event'];
+                switch ($event) {
+                    //普通扫描（已关注）
+                    case 'SCAN':
+                        break;
+                    //关注
+                    case 'subscribe':
+                        break;
+                    //取消关注
+                    case 'unsubscribe':
+                        break;
+                    case 'CLICK':
+                        break;
+                }
+                break;
+            //回复文字消息
+            case 'text':
+               $xml = $this->textXml($content,'text','你好');
+        }
+        return $xml;
     }
+
+
+    public function textXml($content,$type = 'text',$answer = ''){
+        $data['ToUserName'] = $content['from_user_name'];
+        $data['FromUserName'] = $content['to_user_name'];
+        $data['CreateTime'] = time();
+        switch ($type){
+            case 'text':
+                $data['MsgType'] = 'text';
+                $data['Content'] = $answer;
+                $mainXml = $this->data2Xml($data);
+                break;
+            default:
+                return '';
+                break;
+        }
+        $xml = '<xml>' . $mainXml . '</xml>';
+        return $xml;
+    }
+
+
+    public function data2Xml($data, $item = 'item', $id = 'id'){
+        $xml = $attr = '';
+
+        foreach ($data as $key => $val) {
+            if (is_numeric($key)) {
+                $id && $attr = " {$id}=\"{$key}\"";
+                $key = $item;
+            }
+
+            $xml .= "<{$key}{$attr}>";
+
+            if ((is_array($val) || is_object($val))) {
+                $xml .= $this->data2Xml((array) $val, $item, $id);
+            } else {
+                $xml .= is_numeric($val) ? $val : $this->cdata($val);
+            }
+
+            $xml .= "</{$key}>";
+        }
+
+        return $xml;
+    }
+
+    /**
+     * 生成<![CDATA[%s]]>
+     *
+     * @param string $string 内容
+     *
+     * @return string
+     */
+    private function cdata($string) {
+        return sprintf('<![CDATA[%s]]>', $string);
+    }
+
 
     /**创建菜单
      * @param $createMue
