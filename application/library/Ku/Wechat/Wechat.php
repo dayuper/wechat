@@ -80,6 +80,7 @@ class Wechat extends BaseAbstract {
      */
     public function getXmlContent(){
         $postArr = file_get_contents('php://input');
+        \Ku\Log\Adapter::getInstance()->Applog(array($postArr, __CLASS__, __FUNCTION__, __LINE__));
         if(empty($postArr)){
             return false;
         }
