@@ -121,6 +121,7 @@ class Wechat extends BaseAbstract {
             case 'text':
                $xml = $this->textXml($content,'text','你好');
         }
+        \Ku\Log\Adapter::getInstance()->Applog(array($xml, __CLASS__, __FUNCTION__, __LINE__));
         return $xml;
     }
 
