@@ -109,7 +109,7 @@ class Wechat extends BaseAbstract {
                         break;
                     //关注
                     case 'subscribe':
-                        return $this->createXml($content, 'text', "亲爱的，欢迎来到私房钱，开启财富之路！\n
+                        return $this->textXml($content, 'text', "亲爱的，欢迎来到私房钱，开启财富之路！\n
 <a href=\"http://ball.cdddong.com\">立即注册领取新人专享礼包</a>\n
 <a href=\"http://ball.cdddong.com\">点击进入私房钱投资交流圈</a>\n");
                         break;
