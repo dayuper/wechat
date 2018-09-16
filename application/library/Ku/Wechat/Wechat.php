@@ -147,30 +147,26 @@ class Wechat extends BaseAbstract {
         return $xml;
     }
 
-
-    public function data2Xml($data, $item = 'item', $id = 'id'){
-        $xml = $attr = '';
-
-        foreach ($data as $key => $val) {
-            if (is_numeric($key)) {
-                $id && $attr = " {$id}=\"{$key}\"";
-                $key = $item;
+    /**将数组转化为xml
+     * @param $data
+     * @param bool $root
+     * @return string
+     */
+    public function data2Xml($data, $root = true){
+        $str="";
+        if($root)$str .= "<xml>";
+        foreach($data as $key => $val){
+            if(is_array($val)){
+                $child = $this->arr2xml($val, false);
+                $str .= "<$key>$child</$key>";
+            }else{
+                $str.= "<$key><![CDATA[$val]]></$key>";
             }
-
-            $xml .= "<{$key}{$attr}>";
-            $xml .= "<{$key}";
-
-            if ((is_array($val) || is_object($val))) {
-                $xml .= $this->data2Xml((array) $val, $item, $id);
-            } else {
-                $xml .= is_numeric($val) ? $val : $this->cdata($val);
-            }
-
-            $xml .= "</{$key}>";
         }
-
-        return $xml;
+        if($root)$str .= "</xml>";
+        return $str;
     }
+
 
     /**
      * 生成<![CDATA[%s]]>
