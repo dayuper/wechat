@@ -178,17 +178,6 @@ class Wechat extends BaseAbstract {
     }
 
 
-    /**
-     * 生成<![CDATA[%s]]>
-     *
-     * @param string $string 内容
-     *
-     * @return string
-     */
-    private function cdata($string) {
-        return sprintf('<![CDATA[%s]]>', $string);
-    }
-
 
     /**创建菜单
      * @param $createMue
@@ -260,7 +249,7 @@ class Wechat extends BaseAbstract {
      */
     public function authorize($returnUrl , $scope = 'snsapi_userinfo' , $state = 'STATE'){
         $url = $this->_api.'/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
-        $url = sprintf($url,$this->_appId,$returnUrl,$scope,$state);
+        $url = sprintf($url,$this->_appId,urlencode($returnUrl),$scope,$state);
         return $url;
     }
 
