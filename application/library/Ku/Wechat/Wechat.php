@@ -122,7 +122,7 @@ class Wechat extends BaseAbstract {
                         break;
                     case 'CLICK':
                         if($content['event_key'] == 'cdq1995_002'){
-                            $url = $this->authorize('http://wechat.cddong.top?action=authorize');
+                            $url = $this->authorize('http://wechat.cddong.top','authorize');
                             $xml = $this->textXml($content,'text',"<a href=\"$url\">点击认证~</a>");
                         }
                         break;
@@ -248,7 +248,7 @@ class Wechat extends BaseAbstract {
      * @param string $state
      * @return string
      */
-    public function authorize($returnUrl , $scope = 'snsapi_userinfo' , $state = 'STATE'){
+    public function authorize($returnUrl , $scope = 'snsapi_userinfo' , $state = ''){
         $url = $this->_openApi.'/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
         $url = sprintf($url,$this->_appId,urlencode($returnUrl),$scope,$state);
         return $url;

@@ -16,8 +16,7 @@ class RedirectController extends \Base\ApplicationController{
         $params = $request->getPost();
         $gParam = $request->getQuery();
         $params = array_merge($params, $gParam);
-        $action = $params['action'];
-        unset($params['action']);
+        $action = $params['state'];
         $business = \Business\Redirect::getInstance();
         $res = $business->$action($params);
         var_dump($res);
