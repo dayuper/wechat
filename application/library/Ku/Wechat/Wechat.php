@@ -98,6 +98,10 @@ class Wechat extends BaseAbstract {
         return $content;
     }
 
+    /**动作处理
+     * @param $content
+     * @return string
+     */
     public function act($content){
         $xml = '';
         switch ($content['msg_type']) {
@@ -109,11 +113,17 @@ class Wechat extends BaseAbstract {
                         break;
                     //关注
                     case 'subscribe':
+                        $xml = $this->textXml($content,'text','欢迎您加入我们');
                         break;
                     //取消关注
                     case 'unsubscribe':
+
                         break;
                     case 'CLICK':
+                        if($content['event_key'] == 'cdq1995_002'){
+                            $url = $this->authorize('http://wechat.cddong.top?action=authorize');
+                            $xml = $this->textXml($content,'text',"<a href=\"$url\">点击认证~</a>");
+                        }
                         break;
                 }
                 break;
@@ -124,7 +134,12 @@ class Wechat extends BaseAbstract {
         return $xml;
     }
 
-
+    /**消息回复
+     * @param $content
+     * @param string $type
+     * @param string $answer
+     * @return string
+     */
     public function textXml($content,$type = 'text',$answer = ''){
         $data['ToUserName'] = $content['from_user_name'];
         $data['FromUserName'] = $content['to_user_name'];
@@ -237,6 +252,29 @@ class Wechat extends BaseAbstract {
         return $this->getMsg($result['errcode'],$result['errmsg']);
     }
 
+    /**获取授权code
+     * @param $returnUrl
+     * @param string $scope snsapi_base|snsapi_userinfo
+     * @param string $state
+     * @return string
+     */
+    public function authorize($returnUrl , $scope = 'snsapi_userinfo' , $state = 'STATE'){
+        $url = $this->_api.'/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
+        $url = sprintf($url,$this->_appId,$returnUrl,$scope,$state);
+        return $url;
+    }
 
+    /**通过code换取网页授权access_token
+     * @param $code
+     * @return array|\Ku\json|null|Object|string
+     */
+    public function code2AccessToken($code){
+        $url = $this->_api.'/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code';
+        $url = sprintf($url,$this->_appId,$this->_appSecret,$code);
+        $http = new \Ku\Http();
+        $http->setUrl($url);
+        $res = $http->send();
+        return $res;
+    }
 
 }

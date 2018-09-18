@@ -44,13 +44,13 @@ class WechatController extends \Base\ApplicationController
                     )
                 ),
                 array( 'name'=>'更多','sub_button'=>array(
-                    array('type'=>'click','name'=>'赞一下我们','key'=>'cdq1995_002'),
+                    array('type'=>'click','name'=>'认证','key'=>'cdq1995_002'),
                     array('type'=>'scancode_waitmsg','name'=>'扫码带提示','key'=>'cdq1995_003'),
                     array('type'=>'scancode_push','name'=>'扫码推事件','key'=>'cdq1995_004')
                 ))
             )
         );
-        $res = $wechat->createMue($menu);
+        $res = $wechat->createMenu($menu);
         var_dump($res);
     }
 
@@ -63,6 +63,7 @@ class WechatController extends \Base\ApplicationController
         }
         var_dump($res);
     }
+
 
 
 }
