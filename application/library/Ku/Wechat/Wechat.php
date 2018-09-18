@@ -248,7 +248,7 @@ class Wechat extends BaseAbstract {
      * @param string $state
      * @return string
      */
-    public function authorize($returnUrl , $scope = 'snsapi_userinfo' , $state = ''){
+    public function authorize($returnUrl , $state = '', $scope = 'snsapi_userinfo'){
         $url = $this->_openApi.'/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
         $url = sprintf($url,$this->_appId,urlencode($returnUrl),$scope,$state);
         return $url;
