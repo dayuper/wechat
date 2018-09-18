@@ -11,6 +11,7 @@ class Wechat extends BaseAbstract {
     use Instance;
 
     private $_api = 'https://api.weixin.qq.com/';
+    private $_openApi = 'https://open.weixin.qq.com/';
     private $_appId = '';
     private $_appSecret = '';
     private $_wechatToken = '';
@@ -248,7 +249,7 @@ class Wechat extends BaseAbstract {
      * @return string
      */
     public function authorize($returnUrl , $scope = 'snsapi_userinfo' , $state = 'STATE'){
-        $url = $this->_api.'/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
+        $url = $this->_openApi.'/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
         $url = sprintf($url,$this->_appId,urlencode($returnUrl),$scope,$state);
         return $url;
     }
