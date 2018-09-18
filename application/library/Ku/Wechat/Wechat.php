@@ -249,7 +249,7 @@ class Wechat extends BaseAbstract {
      * @return string
      */
     public function authorize($returnUrl , $state = '', $scope = 'snsapi_userinfo'){
-        $url = $this->_openApi.'/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
+        $url = $this->_openApi.'connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect';
         $url = sprintf($url,$this->_appId,urlencode($returnUrl),$scope,$state);
         return $url;
     }
@@ -259,7 +259,7 @@ class Wechat extends BaseAbstract {
      * @return array|\Ku\json|null|Object|string
      */
     public function code2AccessToken($code){
-        $url = $this->_api.'/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code';
+        $url = $this->_api.'sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code';
         $url = sprintf($url,$this->_appId,$this->_appSecret,$code);
         $http = new \Ku\Http();
         $http->setUrl($url);
