@@ -122,7 +122,7 @@ class Wechat extends BaseAbstract {
                         break;
                     case 'CLICK':
                         if($content['event_key'] == 'cdq1995_002'){
-                            $url = $this->authorize('http://wechat.cddong.top/redirect','authorize');
+                            $url = $this->authorize('http://wechat.cddong.top/redirect','authorize','snsapi_base');
                             $xml = $this->textXml($content,'text',"<a href=\"$url\">点击认证~</a>");
                         }
                         break;
