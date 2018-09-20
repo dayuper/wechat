@@ -7,6 +7,8 @@
  */
 namespace Ku\Wechat;
 
+use Ku\Http;
+
 class Wechat extends BaseAbstract {
     use Instance;
 
@@ -267,6 +269,16 @@ class Wechat extends BaseAbstract {
         $url = $this->_api.'sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code';
         $url = sprintf($url,$this->_appId,$this->_appSecret,$code);
         $http = new \Ku\Http();
+        $http->setUrl($url);
+        $res = $http->send();
+        return $res;
+    }
+
+
+    public function token2User($accessToken,$lang = 'zh_CN'){
+        $url = $this->_api.'sns/userinfo?access_token=%s&openid=%s&lang=%s';
+        $url = sprintf($url,$accessToken,$this->_appId,$lang);
+        $http = new Http();
         $http->setUrl($url);
         $res = $http->send();
         return $res;

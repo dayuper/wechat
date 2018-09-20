@@ -18,7 +18,8 @@ class RedirectController extends \Base\ApplicationController{
         $params = array_merge($params, $gParam);
         $action = $params['state'];
         $business = \Business\Redirect::getInstance();
-        $res = $business->$action($params);
+        $business->$action($params);
+        echo '个人认证';
         return false;
     }
 
