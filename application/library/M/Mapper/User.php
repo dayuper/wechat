@@ -10,7 +10,7 @@ namespace M\Mapper;
 class User extends \M\Mapper\MapperAbstract
 {
 
-    use \Base\Model\InstanceModel;
+    use \M\Instance;
 
     protected $modelClass = '\M\User';
 
