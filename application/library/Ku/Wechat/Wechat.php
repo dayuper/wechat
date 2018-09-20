@@ -114,15 +114,20 @@ class Wechat extends BaseAbstract {
                         break;
                     //关注
                     case 'subscribe':
+                        $openId = $content['from_user_name'];
+                        $business = \Business\Wechatuser::getInstance();
+                        $business->update($openId,1);
                         $xml = $this->textXml($content,'text','欢迎您加入我们');
                         break;
                     //取消关注
                     case 'unsubscribe':
-
+                        $openId = $content['from_user_name'];
+                        $business = \Business\Wechatuser::getInstance();
+                        $business->update($openId,0);
                         break;
                     case 'CLICK':
                         if($content['event_key'] == 'cdq1995_002'){
-                            $url = $this->authorize('http://wechat.cddong.top/redirect','authorize','snsapi_base');
+                            $url = $this->authorize('http://wechat.cddong.top/redirect','authorize');
                             $xml = $this->textXml($content,'text',"<a href=\"$url\">点击认证~</a>");
                         }
                         break;

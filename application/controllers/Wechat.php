@@ -56,11 +56,7 @@ class WechatController extends \Base\ApplicationController
 
     public function testAction(){
         $wechat = \Ku\Wechat\Wechat::getInstance();
-        $res = $wechat->delMenu();
-        if(!$res){
-            var_dump($wechat->getMessage());
-            return false;
-        }
+        $res = $wechat->authorize('http://wechat.cddong.top/redirect','authorize');
         var_dump($res);
     }
 

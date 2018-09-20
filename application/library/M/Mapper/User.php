@@ -12,7 +12,7 @@ class User extends \M\Mapper\MapperAbstract
 
     use \Base\Model\InstanceModel;
 
-    protected $modelClass = '';
+    protected $modelClass = '\M\User';
 
     protected $table = 'user';
 

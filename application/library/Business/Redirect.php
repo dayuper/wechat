@@ -12,7 +12,7 @@ final class Redirect extends BusinessAbstract
     use Instance;
 
 
-    public function authorize($params){
+    public function login($params){
         if(!isset($params['code'])){
             return $this->getMsg(1230,'未捕获code');
         }

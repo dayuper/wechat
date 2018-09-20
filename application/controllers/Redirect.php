@@ -19,7 +19,6 @@ class RedirectController extends \Base\ApplicationController{
         $action = $params['state'];
         $business = \Business\Redirect::getInstance();
         $res = $business->$action($params);
-        var_dump($res);
         return false;
     }
 
