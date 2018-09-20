@@ -274,7 +274,11 @@ class Wechat extends BaseAbstract {
         return $res;
     }
 
-
+    /**使用token获取微信用户信息
+     * @param $accessToken
+     * @param string $lang
+     * @return array|\Ku\json|null|Object|string
+     */
     public function token2User($accessToken,$lang = 'zh_CN'){
         $url = $this->_api.'sns/userinfo?access_token=%s&openid=%s&lang=%s';
         $url = sprintf($url,$accessToken,$this->_appId,$lang);
@@ -282,6 +286,30 @@ class Wechat extends BaseAbstract {
         $http->setUrl($url);
         $res = $http->send();
         return $res;
+    }
+
+    /**创建二维码
+     * @param $param
+     * @return array|\Ku\json|null|Object|string
+     */
+    public function qrcode($param){
+        $url = $this->_api.'cgi-bin/qrcode/create?access_token=%s';
+        $token = $this->getAccessToken();
+        $url = sprintf($url,$token);
+        $http = new Http();
+        $http->setUrl($url);
+        $http->setParam($param,true,true);
+        $res = $http->postJson();
+        return $res;
+    }
+
+    /**票据获取二维码图片
+     * @param $ticket
+     * @return string
+     */
+    public function qrcodeForTicket($ticket){
+        $url = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$ticket;
+        return $url;
     }
 
 }
