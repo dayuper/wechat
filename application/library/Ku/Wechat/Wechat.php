@@ -116,7 +116,7 @@ class Wechat extends BaseAbstract {
                     case 'subscribe':
                         $openId = $content['from_user_name'];
                         $business = \Business\Wechatuser::getInstance();
-                        $business->update($openId,1);
+                        $business->add($openId);
                         $xml = $this->textXml($content,'text','欢迎您加入我们');
                         break;
                     //取消关注

@@ -13,11 +13,18 @@ use \Business\Instance;
      * @return bool
      */
     public function add($openId){
+        $mapper = \M\Mapper\User::getInstance();
+        $user = $mapper->fetch(array('openId'=>$openId));
+        if($user instanceof \M\User){
+            $user->setStatus(1);
+            $mapper->update($user);
+            return true;
+        }
         $user = new \M\User();
         $user->setOpenId($openId);
         $user->setCreate_time(date('YmdHis'));
         $user->setUpdate_time(date('YmdHis'));
-        $res = \M\Mapper\User::getInstance()->insert($user);
+        $res = $mapper->insert($user);
         if($res === false){
             return $this->getMsg(1000,'添加用户失败');
         }
@@ -32,10 +39,6 @@ use \Business\Instance;
     public function update($openId,$status){
         $mapper = \M\Mapper\User::getInstance();
         $user = $mapper->fetch(array('openId'=>$openId));
-        if(!$user instanceof \M\User){
-            $this->add($openId);
-            $user = $mapper->fetch(array('openId'=>$openId));
-        }
         $user->setUpdate_time(date('YmdHis'));
         $user->setStatus($status);
         $res = $mapper->update($user);
